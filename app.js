@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, gamePlaying, prevDice, gameScore;
+var scores, roundScore, activePlayer, gamePlaying, prevDice;
 var gameInfo = document.getElementById('gameInfo');
 var emojis = ['🤗', '😋', '😏', '😅', '😁'];
 
@@ -61,8 +61,21 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         // Update the UI
         document.querySelector('#score-'+ activePlayer).textContent = scores[activePlayer];
 
+        var input = document.querySelector('.final-score').value;
+        var winningScore;
+
+        // Undefined, 0, null or "" are COERCED to false
+        // Anything else is COERCED to true
+        if (input) {
+            winningScore = input;
+        } else {
+            winningScore = 100;
+        }
+        document.getElementById('goal-score').textContent = 'Goal: ' + winningScore;
+        
+
         // Check if player won the game
-        if(scores[activePlayer] >= gameScore) {
+        if(scores[activePlayer] >= winningScore) {
             document.querySelector('#name-' + activePlayer).textContent = 'WINNER!';
             document.querySelector('.dice').style.display = 'none';
             document.querySelector('.dice-2').style.display = 'none';
@@ -103,9 +116,7 @@ function init() {
     roundScore = 0;
     activePlayer = 0;
     gameInfo.textContent = 'Roll dice to start';
-    gameScore = prompt('What should be the game winning score?');
 
-    document.getElementById('goal-score').textContent = 'Goal: '+ gameScore;
 
     document.querySelector('.dice').style.display = 'none';
     document.querySelector('.dice-2').style.display = 'none';
