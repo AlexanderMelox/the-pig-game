@@ -71,8 +71,6 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         } else {
             winningScore = 100;
         }
-        document.getElementById('goal-score').textContent = 'Goal: ' + winningScore;
-        
 
         // Check if player won the game
         if(scores[activePlayer] >= winningScore) {
@@ -109,6 +107,10 @@ function nextPlayer() {
 }
 
 document.querySelector('.btn-new').addEventListener('click', init);
+document.querySelector('.final-score').addEventListener('keyup', () => {
+    var input = document.querySelector('.final-score').value;
+    document.getElementById('goal-score').innerHTML = 'Goal: <strong>'+ input + '</strong>';
+});
 
 function init() {
     gamePlaying = true;
